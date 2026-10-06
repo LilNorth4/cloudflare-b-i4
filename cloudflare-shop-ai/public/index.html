@@ -1,0 +1,167 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="description" content="CloudShop - web bán hàng chạy trên Cloudflare Workers, Python, D1 và Workers AI." />
+  <title>CloudShop AI</title>
+  <link rel="stylesheet" href="/styles.css" />
+</head>
+<body>
+  <header class="site-header">
+    <a class="brand" href="#top">
+      <span class="brand-mark">C</span>
+      <span>CloudShop</span>
+    </a>
+    <nav>
+      <a href="#products">Sản phẩm</a>
+      <a href="#policies">Chính sách</a>
+      <a href="#architecture">Công nghệ</a>
+    </nav>
+    <button class="cart-btn" id="cartButton" aria-label="Mở giỏ hàng">
+      Giỏ hàng <span id="cartCount">0</span>
+    </button>
+  </header>
+
+  <main id="top">
+    <section class="hero">
+      <div class="hero-copy">
+        <p class="eyebrow">PYTHON × CLOUDFLARE × AI</p>
+        <h1>Mua sắm thông minh cùng trợ lý AI của shop.</h1>
+        <p class="hero-text">
+          Hỏi bằng ngôn ngữ tự nhiên về sản phẩm, giá, tồn kho, thông số,
+          giao hàng, bảo hành và đổi trả.
+        </p>
+        <div class="hero-actions">
+          <a class="button primary" href="#products">Xem sản phẩm</a>
+          <button class="button secondary" id="heroChat">Hỏi AI ngay</button>
+        </div>
+        <div class="trust-row">
+          <span>✓ Dữ liệu D1</span>
+          <span>✓ Python Worker</span>
+          <span>✓ Workers AI</span>
+        </div>
+      </div>
+
+      <div class="hero-card">
+        <div class="mini-window">
+          <div class="mini-dots"><i></i><i></i><i></i></div>
+          <div class="mini-chat bot">Xin chào! Bạn cần tìm sản phẩm nào?</div>
+          <div class="mini-chat user">Laptop nào phù hợp sinh viên?</div>
+          <div class="mini-chat bot">CloudBook Air 14 phù hợp vì nhẹ 1.25kg, RAM 16GB, SSD 512GB và pin tối đa 14 giờ.</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="products">
+      <div class="section-head">
+        <div>
+          <p class="eyebrow">DANH MỤC NỔI BẬT</p>
+          <h2>Sản phẩm của CloudShop</h2>
+        </div>
+        <div class="filters" id="filters">
+          <button class="filter active" data-category="Tất cả">Tất cả</button>
+        </div>
+      </div>
+      <div id="productsGrid" class="products-grid">
+        <div class="loading-card">Đang tải sản phẩm từ Cloudflare D1…</div>
+      </div>
+    </section>
+
+    <section class="feature-band" id="architecture">
+      <article>
+        <span>01</span>
+        <h3>Frontend</h3>
+        <p>HTML/CSS/JS được deploy dưới dạng Workers Static Assets trên Cloudflare.</p>
+      </article>
+      <article>
+        <span>02</span>
+        <h3>Python API</h3>
+        <p>Cloudflare Python Worker xử lý API sản phẩm, chính sách và chatbot.</p>
+      </article>
+      <article>
+        <span>03</span>
+        <h3>AI + Data</h3>
+        <p>D1 lưu dữ liệu shop. Workers AI hiểu câu hỏi tự nhiên và trả lời dựa trên dữ liệu thật.</p>
+      </article>
+    </section>
+
+    <section class="section policy-section" id="policies">
+      <div class="section-head">
+        <div>
+          <p class="eyebrow">MINH BẠCH & RÕ RÀNG</p>
+          <h2>Chính sách cửa hàng</h2>
+        </div>
+      </div>
+      <div class="policy-grid" id="policyGrid">
+        <div class="loading-card">Đang tải chính sách…</div>
+      </div>
+    </section>
+
+    <section class="cta">
+      <div>
+        <p class="eyebrow">KHÔNG BIẾT CHỌN GÌ?</p>
+        <h2>Hãy mô tả nhu cầu của bạn.</h2>
+        <p>Ví dụ: “Mình là sinh viên, cần máy nhẹ, pin lâu, dưới 20 triệu.”</p>
+      </div>
+      <button class="button light" id="ctaChat">Chat với AI</button>
+    </section>
+  </main>
+
+  <footer>
+    <div class="brand footer-brand"><span class="brand-mark">C</span><span>CloudShop</span></div>
+    <p>Demo full-stack chạy trên Cloudflare Workers + Python + D1 + Workers AI.</p>
+  </footer>
+
+  <!-- Cart drawer -->
+  <div class="overlay" id="cartOverlay"></div>
+  <aside class="cart-drawer" id="cartDrawer" aria-hidden="true">
+    <div class="drawer-head">
+      <h3>Giỏ hàng</h3>
+      <button class="icon-btn" id="closeCart">×</button>
+    </div>
+    <div id="cartItems" class="cart-items"></div>
+    <div class="cart-total">
+      <span>Tạm tính</span>
+      <strong id="cartTotal">0 ₫</strong>
+    </div>
+    <button class="button primary full">Tiến hành đặt hàng</button>
+    <small>Demo học tập: nút thanh toán chưa kết nối cổng thanh toán.</small>
+  </aside>
+
+  <!-- AI chat -->
+  <button class="chat-fab" id="chatFab" aria-label="Mở trợ lý AI">
+    <span>✦</span>
+    <b>Hỏi AI</b>
+  </button>
+
+  <section class="chat-panel" id="chatPanel" aria-hidden="true">
+    <div class="chat-head">
+      <div>
+        <div class="assistant-title"><span class="status-dot"></span> CloudShop AI</div>
+        <small>Trợ lý sản phẩm & chính sách</small>
+      </div>
+      <button class="icon-btn" id="closeChat">×</button>
+    </div>
+
+    <div class="suggestions" id="suggestions">
+      <button>Điện thoại nào đang giảm giá?</button>
+      <button>Chính sách đổi trả thế nào?</button>
+      <button>Gợi ý laptop cho sinh viên</button>
+    </div>
+
+    <div class="messages" id="messages">
+      <div class="message bot">
+        Xin chào! Mình có thể tư vấn sản phẩm và trả lời các chính sách đang có trên website.
+      </div>
+    </div>
+
+    <form class="chat-input" id="chatForm">
+      <input id="chatInput" maxlength="1200" autocomplete="off" placeholder="Hỏi về sản phẩm hoặc chính sách…" />
+      <button type="submit" aria-label="Gửi">➤</button>
+    </form>
+  </section>
+
+  <script src="/app.js"></script>
+</body>
+</html>

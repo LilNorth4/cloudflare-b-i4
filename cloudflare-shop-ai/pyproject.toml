@@ -1,0 +1,12 @@
+[project]
+name = "cloudflare-shop-ai"
+version = "0.1.0"
+description = "Web bán hàng + chatbot sản phẩm/chính sách chạy hoàn toàn trên Cloudflare"
+requires-python = ">=3.13"
+dependencies = []
+
+[dependency-groups]
+dev = [
+    "workers-py",
+    "workers-runtime-sdk"
+]

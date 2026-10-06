@@ -1,0 +1,20 @@
+name = "cloudflare-shop-ai"
+main = "src/entry.py"
+compatibility_date = "2026-10-05"
+compatibility_flags = ["python_workers"]
+
+[assets]
+directory = "./public"
+binding = "ASSETS"
+run_worker_first = ["/api/*"]
+
+[ai]
+binding = "AI"
+
+[[d1_databases]]
+binding = "DB"
+database_name = "cloudflare-shop-db"
+database_id = "2a822298-52f1-4653-aa94-3362b6417d66"
+
+[observability]
+enabled = true

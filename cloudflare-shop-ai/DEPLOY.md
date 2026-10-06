@@ -323,5 +323,7 @@ Chưa thêm secret thì workflow báo lỗi nhưng không ảnh hưởng tới b
 | Local có dữ liệu nhưng production trống (hoặc ngược lại) | D1 local (`.wrangler/state`) và D1 remote là hai database tách biệt | Nạp `schema.sql` cho đúng môi trường (`--local` / `--remote`) |
 | Sản phẩm hiển thị nhưng chatbot lỗi | Workers AI hết quota miễn phí hoặc tên model không còn hỗ trợ | Xem log bằng `npx wrangler tail`; kiểm tra `MODEL` trong `src/entry.py` |
 | `git push` báo `403 Permission denied` | Tài khoản GitHub đang đăng nhập không có quyền ghi vào repo | Đổi remote sang repo của mình: `git remote set-url origin <url>` |
+| GitHub Actions báo `Headers.set: "***" is an invalid header value` | Secret `CLOUDFLARE_API_TOKEN` bị dán thừa dòng hoặc khoảng trắng | Sửa secret, dán lại token đúng một dòng (dùng nút **Copy** trên trang Cloudflare) |
+| GitHub Actions báo `Unexpected fields found in assets field: "run_worker_first"` | Workflow dùng Wrangler 3 thay vì bản 4 trong `package.json` | Chạy `npm ci` trước `npx wrangler deploy` trong workflow |
 | Lệnh `node`/`npx`/`uv` không tìm thấy ngay sau khi cài | Terminal cũ chưa nhận PATH mới | Đóng và mở lại terminal / VS Code |
 | Request đầu tiên sau deploy chậm hoặc trả về rỗng | Python Worker khởi động lần đầu (cold start) | Gọi lại sau vài giây |

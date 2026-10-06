@@ -14,7 +14,7 @@ binding = "AI"
 [[d1_databases]]
 binding = "DB"
 database_name = "cloudflare-shop-db"
-database_id = "2a822298-52f1-4653-aa94-3362b6417d66"
+database_id = "9fbc7a51-f944-487f-a0f6-a8fbfad76b0a"
 
 [observability]
 enabled = true

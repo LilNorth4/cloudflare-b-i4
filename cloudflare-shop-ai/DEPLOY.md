@@ -305,10 +305,9 @@ npx wrangler deployments list
 npx wrangler rollback
 ```
 
-**Tự động deploy khi push (tùy chọn):** repo có sẵn `.github/workflows/deploy.yml`. Để dùng, thêm 2 secret trong GitHub (Settings → Secrets and variables → Actions):
+**Tự động deploy khi push (tùy chọn):** repo có sẵn `.github/workflows/deploy.yml`. Account ID đã ghi sẵn trong file workflow; chỉ cần thêm 1 secret trong GitHub (Settings → Secrets and variables → Actions):
 
 - `CLOUDFLARE_API_TOKEN`: tạo tại https://dash.cloudflare.com/profile/api-tokens, quyền *Account → Workers Scripts → Edit* và *Account → D1 → Edit*
-- `CLOUDFLARE_ACCOUNT_ID`: Account ID từ `npx wrangler whoami`
 
 Chưa thêm secret thì workflow báo lỗi nhưng không ảnh hưởng tới bản đang chạy.
 

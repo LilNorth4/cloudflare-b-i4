@@ -66,18 +66,28 @@ Cấu hình `run_worker_first = ["/api/*"]` đảm bảo chỉ các request `/ap
 | Tài khoản Cloudflare | Free plan | https://dash.cloudflare.com/sign-up |
 | Node.js (kèm `npx`) | 24.19.0 LTS | `winget install OpenJS.NodeJS.LTS` |
 | uv (quản lý Python) | 0.12.23 | `winget install astral-sh.uv` |
-| Wrangler | 4.147.0 | Tự tải qua `npx wrangler ...` |
+| Wrangler | 4.147.0 | `npm install` (khai báo trong `package.json`) |
 | Git | bất kỳ | https://git-scm.com |
 
-Sau khi cài, **mở terminal mới** để nhận PATH rồi kiểm tra:
+Mọi lệnh bên dưới chạy trong thư mục `cloudflare-shop-ai/` (thư mục chứa `wrangler.toml`).
+
+Sau khi cài, **mở terminal mới** để nhận PATH, rồi cài Wrangler cho project và kiểm tra:
 
 ```bash
+npm install
 node -v
 uv --version
 npx wrangler --version
 ```
 
-Mọi lệnh bên dưới chạy trong thư mục `cloudflare-shop-ai/` (thư mục chứa `wrangler.toml`).
+`npm install` cài Wrangler vào `node_modules/` theo `package.json`; `npx wrangler` sẽ dùng bản này. `package.json` cũng có sẵn các lệnh tắt:
+
+| Lệnh tắt | Tương đương |
+|---|---|
+| `npm run dev` | `wrangler dev` |
+| `npm run deploy` | `wrangler deploy` |
+| `npm run db:local` | nạp `schema.sql` vào D1 local |
+| `npm run db:remote` | nạp `schema.sql` vào D1 production |
 
 ## 3. Bước 1: Đăng nhập & Xác thực Cloudflare
 

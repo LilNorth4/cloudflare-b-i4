@@ -1,0 +1,20 @@
+{
+  "name": "cloudflare-shop-ai",
+  "version": "1.0.0",
+  "description": "CloudShop AI - web ban hang + chatbot tren Cloudflare Workers",
+  "scripts": {
+    "dev": "wrangler dev",
+    "deploy": "wrangler deploy",
+    "db:local": "wrangler d1 execute cloudflare-shop-db --local --file=./schema.sql",
+    "db:remote": "wrangler d1 execute cloudflare-shop-db --remote --file=./schema.sql"
+  },
+  "type": "commonjs",
+  "devDependencies": {
+    "wrangler": "^4.147.0"
+  },
+  "allowScripts": {
+    "esbuild@0.28.1": true,
+    "workerd@1.20261001.1": true
+  },
+  "private": true
+}
